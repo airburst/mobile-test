@@ -1,0 +1,102 @@
+http://localhost:3001/eclipse/rest/person?s=%5B%5D
+&pageNumber=1
+&pageSize=10
+&useSoundex=false
+&escapeSpecialCharacters=true
+&appendWildcard=true
+&nameOrId=Ben
+&houseStreetTown=
+&postCode=TW12%201HW
+&minAge=
+&maxAge=
+&gender=
+&upn=
+&tupn=
+&extRefNo=
+&nhsNo=
+&dayOfBirth=
+&monthOfBirth=
+&yearOfBirth=
+
+
+[
+    {
+      "objectVersion": 2,
+      "_secured": false,
+      "id": 8,
+      "title": "MR",
+      "forename": "Ben ",
+      "surname": "Mutton",
+      "middleNames": null,
+      "suffix": null,
+      "personIdentifier": "PER8",
+      "gender": "MALE",
+      "dateOfBirth": {
+        "_type": "SimpleFuzzyDate",
+        "calculatedDate": "1985-01-14",
+        "fuzzyDateMask": "DAY",
+        "allowedRange": {
+          "upperBoundDate": 474505200000,
+          "lowerBoundDate": 474505200000
+        }
+      },
+      "ethnicity": "WHITE_BRITISH",
+      "age": 32,
+      "name": "Ben  Mutton",
+      "dateOfBirthEstimated": null,
+      "nhsNumber": null,
+      "personTypes": [
+        "CLIENT",
+        "PROFESSIONAL"
+      ],
+      "professionalTitle": "SOCIALWORKER",
+      "organisationName": "Birmingham City Council",
+      "knownAs": null,
+      "alternateNames": null,
+      "lifeState": "ALIVE",
+      "dueDate": null,
+      "notCarriedToTermType": null,
+      "diedDate": null,
+      "diedDateEstimated": null,
+      "_type": "Person"
+    },
+    {
+      "objectVersion": 0,
+      "_secured": false,
+      "id": 16,
+      "title": "MISS",
+      "forename": "James",
+      "surname": "Bennett",
+      "middleNames": null,
+      "suffix": null,
+      "personIdentifier": "PER16",
+      "gender": "FEMALE",
+      "dateOfBirth": {
+        "_type": "SimpleFuzzyDate",
+        "calculatedDate": "2010-09-16",
+        "fuzzyDateMask": "DAY",
+        "allowedRange": {
+          "upperBoundDate": 1284588000000,
+          "lowerBoundDate": 1284588000000
+        }
+      },
+      "ethnicity": "WHITE_AND_BLACK_CARIBBEAN",
+      "age": 6,
+      "name": "James Bennett",
+      "dateOfBirthEstimated": null,
+      "nhsNumber": null,
+      "personTypes": [
+        "CLIENT"
+      ],
+      "professionalTitle": null,
+      "organisationName": null,
+      "knownAs": null,
+      "alternateNames": null,
+      "lifeState": "ALIVE",
+      "dueDate": null,
+      "notCarriedToTermType": null,
+      "diedDate": null,
+      "diedDateEstimated": null,
+      "_type": "Person"
+    }
+  ]

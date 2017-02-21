@@ -1,0 +1,71 @@
+{
+    "status": 200,
+    "result": [
+        {
+            "postcode": "SN13 9XE",
+            "quality": 1,
+            "eastings": 385480,
+            "northings": 168721,
+            "country": "England",
+            "nhs_ha": "South West",
+            "longitude": -2.21018921226251,
+            "latitude": 51.4173192889954,
+            "parliamentary_constituency": "Chippenham",
+            "european_electoral_region": "South West",
+            "primary_care_trust": "Wiltshire",
+            "region": "South West",
+            "lsoa": "Wiltshire 018D",
+            "msoa": "Wiltshire 018",
+            "incode": "9XE",
+            "outcode": "SN13",
+            "distance": 9.231495912,
+            "admin_district": "Wiltshire",
+            "parish": "Corsham",
+            "admin_county": null,
+            "admin_ward": "Corsham Without and Box Hill",
+            "ccg": "NHS Wiltshire",
+            "nuts": "Wiltshire",
+            "codes": {
+                "admin_district": "E06000054",
+                "admin_county": "E99999999",
+                "admin_ward": "E05008355",
+                "parish": "E04011689",
+                "ccg": "E38000206",
+                "nuts": "UKK15"
+            }
+        },
+        {
+            "postcode": "SN13 9YJ",
+            "quality": 1,
+            "eastings": 385542,
+            "northings": 168746,
+            "country": "England",
+            "nhs_ha": "South West",
+            "longitude": -2.20929867667025,
+            "latitude": 51.4175456730969,
+            "parliamentary_constituency": "Chippenham",
+            "european_electoral_region": "South West",
+            "primary_care_trust": "Wiltshire",
+            "region": "South West",
+            "lsoa": "Wiltshire 018D",
+            "msoa": "Wiltshire 018",
+            "incode": "9YJ",
+            "outcode": "SN13",
+            "distance": 66.110028591,
+            "admin_district": "Wiltshire",
+            "parish": "Corsham",
+            "admin_county": null,
+            "admin_ward": "Corsham Without and Box Hill",
+            "ccg": "NHS Wiltshire",
+            "nuts": "Wiltshire",
+            "codes": {
+                "admin_district": "E06000054",
+                "admin_county": "E99999999",
+                "admin_ward": "E05008355",
+                "parish": "E04011689",
+                "ccg": "E38000206",
+                "nuts": "UKK15"
+            }
+        }
+    ]
+}
