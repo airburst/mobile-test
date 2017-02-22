@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import * as types from '../actions';
+import * as types from '../actions/types';
 
 let initialState = {
     lat: 'unknown',
@@ -14,6 +14,11 @@ const location = (state = initialState, action) => {
             return Object.assign({}, state, {
                 lat: action.data.lat,
                 lon: action.data.lon
+            });
+
+        case types.RECEIVE_POSTCODE:
+            return Object.assign({}, state, {
+                postcode: action.data
             });
 
         default:

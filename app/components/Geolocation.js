@@ -12,12 +12,10 @@ class Geolocation extends React.Component {
     componentDidMount() {
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                var pos = JSON.stringify(position);
-                this.setState({ position: pos });                                //
-                this.props.updateLocation({
-                    lat: position.coords.latitude,
-                    lon: position.coords.longitude
-                });
+                let lat = position.coords.latitude,
+                    lon = position.coords.longitude
+                this.props.updateLocation({ lat, lon });
+                this.props.getPostcode(lat, lon);
             },
             (error) => alert(JSON.stringify(error)),
             { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
@@ -33,11 +31,14 @@ class Geolocation extends React.Component {
     // }
 
     render() {
-        console.log('props', this.props);                    //
+        let { location } = { ...this.props };
         return (
             <View>
                 <Text>
-                    Lat: {this.props.location.lat}, Lon: {this.props.location.lon}
+                    Lat: {location.lat}, Lon: {location.lon}
+                </Text>
+                <Text>
+                    Postcode: {location.postcode}
                 </Text>
             </View>
         );
