@@ -1,8 +1,8 @@
-import SessionCookie from './Cookie';
-// import chronologyResponse from './chronologyResponse.json';
+// import SessionCookie from './Cookie';
 
-const PROXY = 'http://eclipse.fairhursts.net:3001';
+const PROXY = 'http://proxy.fairhursts.net';
 const PERSON = PROXY + '/eclipse/rest/person/{id}';
+const SEARCH = PROXY + '/eclipse/rest/person?s=%5B%5D&pageNumber=1&';
 const CHRONOLOGY = PERSON + '/chronologyEntry?s=[{%22eventDate!calculatedDate%22:%20%22desc%22}]&pageNumber=1&pageSize=-1';
 const ADDRESSES = PERSON + '/address';
 const CASENOTES = PERSON + '/caseNoteEntry';
@@ -11,11 +11,12 @@ const PROFESSIONALS_HEADER = 'application/vnd.olmgroup-usp.relationshipsrecordin
 
 class EclipseRestService {
 
-    constructor(id) {
+    constructor(id = 1) {
         this.id = id;
-        this.cookie = SessionCookie();
+        // this.cookie = SessionCookie();
         this.endPoints = {
             person: this.replaceId(PERSON, id),
+            search: SEARCH,
             chronology: this.replaceId(CHRONOLOGY, id),
             addresses: this.replaceId(ADDRESSES, id),
             caseNotes: this.replaceId(CASENOTES, id),
@@ -39,6 +40,19 @@ class EclipseRestService {
         return this.sendRequest(this.endPoints.person, this.mapPersonResponse);
     }
 
+    search(params) {
+        // params ~ e.g. { postCode: 'AB1 1AB' }
+        // See Person Search Params.txt for full list
+        let url = this.endPoints.search + this.flattenParams(params);
+        return this.sendRequest(url, this.mapSearchResponse);
+    }
+
+    flattenParams(params) {
+        return Object.entries(params).map(p => {
+            return `${p[0]}=${encodeURI(p[1])}`;
+        }).join('&');
+    }
+
     getChronology() {
         return this.sendRequest(this.endPoints.chronology, this.mapChronologyResponse);
     }
@@ -58,14 +72,15 @@ class EclipseRestService {
     sendRequest(url, handler, header) {
         let options = {
             'credentials': 'include',
-            'Cookie': this.cookie
+            'Cookie': 'JSESSIONID=C7BDA6CE3279ED69B74182169395F8E2'
         };
         if (header) { options.headers = { 'Accept': header }; }
-
+console.log('options', options);                      //
         return new Promise((resolve, reject) => {
             fetch(url, options)
                 .then(res => res.json())
                 .then(data => {
+                    console.log('raw data', data);                      //
                     if (data.results !== undefined) {
                         resolve(handler(data.results));
                     } else {
@@ -89,6 +104,19 @@ class EclipseRestService {
         return results.map(r => {
             return {
                 name: this.getPersonr.name
+            }
+        });
+    }
+
+    mapSearchResponse = (results) => {
+        return results.map(r => {
+            return {
+                title: r.title,
+                name: r.name,
+                dob: r.dateOfBirth.calculatedDate,
+                age: r.age,
+                ethnicity: r.ethnicity,
+                nhsNumber: r.nhsNumber
             }
         });
     }
@@ -138,25 +166,6 @@ class EclipseRestService {
             }
         });
     }
-
-
-    // let scripts = [settings.osMapUrl(), settings.gMapUrl],
-    //             loadPromises = scripts.map(this.scriptLoadService.load);
-
-    //         Promise.all(loadPromises)
-    //             .then((value) => {
-    //                 this.elevationService.init();
-    //                 this.startMap();
-
-    //                 this.route.searchResults$.subscribe((results) => {
-    //                     this.handleSearchResults(results);
-    //                 });
-
-    //                 this.loadRoute();
-
-    //             }, function (value) {
-    //                 console.error('Script not found:', value)
-    //             });
 
     /* Utility Functions */
     makeDate = (number) => {

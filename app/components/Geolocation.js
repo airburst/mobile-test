@@ -30,8 +30,16 @@ class Geolocation extends React.Component {
     //     navigator.geolocation.clearWatch(this.watchID);
     // }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.location.postcode !== prevProps.location.postcode) {
+            console.log('postcode changed:', this.props.location.postcode);     //
+            this.props.searchByPostcode(this.props.location.postcode);
+        }
+    }
+
     render() {
-        let { location } = { ...this.props };
+        let { location, client } = { ...this.props };
+        console.log(client)     //
         return (
             <View>
                 <Text>
