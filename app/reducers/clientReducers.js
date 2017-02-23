@@ -4,12 +4,23 @@ let initialState = {
     user: 'TSteer',
     password: 'OLM12345!',
     authToken: 'NO TOKEN',
+    fetching: false,
     clientList: [],
     currentClient: {}
 };
 
 const clientReducers = (state = initialState, action) => {
     switch (action.type) {
+
+        case types.START_FETCH:
+            return Object.assign({}, state, {
+                fetching: true
+            });
+
+        case types.END_FETCH:
+            return Object.assign({}, state, {
+                fetching: false
+            });
 
         case types.SET_NAME:
             return Object.assign({}, state, {

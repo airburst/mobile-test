@@ -10,15 +10,6 @@ const CASENOTES = PERSON + '/caseNoteEntry';
 const PROFESSIONALS = PERSON + '/personRelationship/professional?temporalStatusFilter=ALL';
 const PROFESSIONALS_HEADER = 'application/vnd.olmgroup-usp.relationshipsrecording.AsymmetricPersonPersonRelationshipResult+json';
 
-// {
-//     userName: 'TSteer',
-//     profileId: '23',
-//     credentials: 'OLM12345!',
-//     '_type': 'SecurityAuthentication'    
-// }
-// POST
-
-
 class EclipseRestService {
 
     constructor(id = 1) {

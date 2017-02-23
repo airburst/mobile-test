@@ -5,6 +5,18 @@ import EclipseRestService from '../services/EclipseRestService';
 const eclipseService = new EclipseRestService(1);
 const AUTH_TOKEN = 'AUTH_TOKEN';
 
+export const startFetch = () => {
+    return {
+        type: types.START_FETCH
+    };
+};
+
+export const endFetch = () => {
+    return {
+        type: types.END_FETCH
+    };
+};
+
 export const setName = (data) => {
     return {
         type: types.SET_NAME,
@@ -18,13 +30,6 @@ export const setPassword = (data) => {
         data
     };
 };
-
-// export const getToken = (data) => {
-//     return {
-//         type: types.GET_TOKEN,
-//         data
-//     };
-// };
 
 export const setToken = (data) => {
     return {
@@ -70,8 +75,13 @@ export const storeAuthToken = (token) => {
     return (dispatch) => {
         AsyncStorage.setItem(AUTH_TOKEN, token)
             .then(() => AsyncStorage.getItem(AUTH_TOKEN)
-                    .then(token => dispatch(setToken(token)))
-                    .catch(err => console.log('Error getting auth token', err))
+                .then(token => {
+                    setTimeout(() => {
+                        dispatch(setToken(token));
+                        dispatch(endFetch())
+                    }, 2000);
+                })
+                .catch(err => console.log('Error getting auth token', err))
             )
             .catch(err => console.log('Error storing auth token', err))
     };
@@ -79,6 +89,7 @@ export const storeAuthToken = (token) => {
 
 export const login = (user, password) => {
     return (dispatch) => {
+        dispatch(startFetch())
         //DEBUG
         dispatch(storeAuthToken(user + password));
 

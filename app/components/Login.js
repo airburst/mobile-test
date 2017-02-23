@@ -4,7 +4,8 @@ import {
     View,
     Text,
     Image,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    ActivityIndicator
 } from 'react-native';
 import LoginForm from './LoginForm';
 
@@ -12,15 +13,22 @@ export default class Login extends React.Component {
 
     render() {
         let { storeAuthToken, client } = { ...this.props };
+        console.log(client)
         return (
             <KeyboardAvoidingView
-                behavior="padding"    
+                behavior="padding"
                 style={styles.container}>
                 <View style={styles.logoContainer}>
                     <Image
                         style={styles.logo}
                         source={require('../images/logo.png')} />
-                    <Text>{client.authToken}</Text>
+                    <Text>{client.fetching} - {client.authToken}</Text>
+                    <ActivityIndicator
+                        animating={client.fetching}
+                        style={[styles.centered, { height: 80 }]}
+                        color="white"
+                        size="large"
+                    />
                 </View>
                 <View style={styles.formContainer}>
                     <LoginForm parentProps={this.props} />
@@ -46,6 +54,9 @@ const styles = StyleSheet.create({
         height: 100
     },
     formContainer: {
-        
+
+    },
+    centred: {
+        alignItems: 'center'
     }
 });
