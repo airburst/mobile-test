@@ -21,7 +21,7 @@ const clientReducers = (state = initialState, action) => {
                 password: action.data
             });
 
-        case types.GET_TOKEN:
+        case types.SET_TOKEN:
             return Object.assign({}, state, {
                 authToken: action.data
             });

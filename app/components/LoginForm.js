@@ -13,7 +13,7 @@ export default class LoginForm extends React.Component {
     render() {
         let loginProps = this.props.parentProps,
             client = loginProps.client;
-    console.log(loginProps)
+
         // user textinput: autoCorrect="none" autoCapitalize={false}
         return (
             <View style={styles.container}>

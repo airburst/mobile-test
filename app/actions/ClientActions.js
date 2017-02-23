@@ -19,12 +19,12 @@ export const setPassword = (data) => {
     };
 };
 
-export const getToken = (data) => {
-    return {
-        type: types.GET_TOKEN,
-        data
-    };
-};
+// export const getToken = (data) => {
+//     return {
+//         type: types.GET_TOKEN,
+//         data
+//     };
+// };
 
 export const setToken = (data) => {
     return {
@@ -58,17 +58,22 @@ export const getAuthToken = () => {
     console.log('getting token')
     return (dispatch) => {
         AsyncStorage.getItem(AUTH_TOKEN)
-            .then((token) => { console.log(token); dispatch(getToken(token)) }) // Not firing
+            .then(token => {
+                console.log('got', token);
+                dispatch(setToken(token));
+            })
             .catch(err => console.log('Error getting auth token', err));
     };
 };
 
 export const storeAuthToken = (token) => {
-    console.log('store', token)
-    return () => {
+    return (dispatch) => {
         AsyncStorage.setItem(AUTH_TOKEN, token)
-            .then(() => { console.log('stored'); getAuthToken(); })
-            .catch(err => console.log('Error storing auth token', err));
+            .then(() => AsyncStorage.getItem(AUTH_TOKEN)
+                    .then(token => dispatch(setToken(token)))
+                    .catch(err => console.log('Error getting auth token', err))
+            )
+            .catch(err => console.log('Error storing auth token', err))
     };
 };
 
