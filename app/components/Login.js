@@ -13,7 +13,6 @@ export default class Login extends React.Component {
 
     render() {
         let { storeAuthToken, client } = { ...this.props };
-        console.log(client)
         return (
             <KeyboardAvoidingView
                 behavior="padding"
@@ -22,7 +21,7 @@ export default class Login extends React.Component {
                     <Image
                         style={styles.logo}
                         source={require('../images/logo.png')} />
-                    <Text>{client.fetching} - {client.authToken}</Text>
+                    <Text>{client.authToken}</Text>
                     <ActivityIndicator
                         animating={client.fetching}
                         style={[styles.centered, { height: 80 }]}

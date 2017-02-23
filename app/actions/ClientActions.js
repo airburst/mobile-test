@@ -76,10 +76,10 @@ export const storeAuthToken = (token) => {
         AsyncStorage.setItem(AUTH_TOKEN, token)
             .then(() => AsyncStorage.getItem(AUTH_TOKEN)
                 .then(token => {
-                    setTimeout(() => {
-                        dispatch(setToken(token));
-                        dispatch(endFetch())
-                    }, 2000);
+                    // setTimeout(() => {
+                    dispatch(setToken(token));
+                    dispatch(endFetch())
+                    // }, 2000);
                 })
                 .catch(err => console.log('Error getting auth token', err))
             )
@@ -92,9 +92,11 @@ export const login = (user, password) => {
         dispatch(startFetch())
         //DEBUG
         dispatch(storeAuthToken(user + password));
-
         // return eclipseService.auth({ postCode: postcode })
-        //     .then(c => dispatch(eclipseSearchData(c)))
+        //     .then(c => {
+        //          dispatch(storeAuthToken(user + password));
+        //          dispatch(eclipseSearchData(c)); // with token
+        //      })
         //     .catch(err => console.log('Error fetching postcode data:', err));
     };
 };
