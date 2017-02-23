@@ -1,6 +1,7 @@
 // import SessionCookie from './Cookie';
 
 const PROXY = 'http://proxy.fairhursts.net';
+const AUTH = PROXY + '/eclipse/rest/authenticate';
 const PERSON = PROXY + '/eclipse/rest/person/{id}';
 const SEARCH = PROXY + '/eclipse/rest/person?s=%5B%5D&pageNumber=1&';
 const CHRONOLOGY = PERSON + '/chronologyEntry?s=[{%22eventDate!calculatedDate%22:%20%22desc%22}]&pageNumber=1&pageSize=-1';
@@ -8,6 +9,15 @@ const ADDRESSES = PERSON + '/address';
 const CASENOTES = PERSON + '/caseNoteEntry';
 const PROFESSIONALS = PERSON + '/personRelationship/professional?temporalStatusFilter=ALL';
 const PROFESSIONALS_HEADER = 'application/vnd.olmgroup-usp.relationshipsrecording.AsymmetricPersonPersonRelationshipResult+json';
+
+// {
+//     userName: 'TSteer',
+//     profileId: '23',
+//     credentials: 'OLM12345!',
+//     '_type': 'SecurityAuthentication'    
+// }
+// POST
+
 
 class EclipseRestService {
 
@@ -78,9 +88,8 @@ class EclipseRestService {
 console.log('options', options);                      //
         return new Promise((resolve, reject) => {
             fetch(url, options)
-                .then(res => res.json())
+                .then(res => { console.log(res); return res.json(); })
                 .then(data => {
-                    console.log('raw data', data);                      //
                     if (data.results !== undefined) {
                         resolve(handler(data.results));
                     } else {

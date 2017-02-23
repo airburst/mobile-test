@@ -1,6 +1,4 @@
 import React from 'react';
-import { dispatch, bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import {
     StyleSheet,
     Text,
