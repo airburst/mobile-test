@@ -10,7 +10,7 @@ class Root extends React.Component {
     render() {
         return (
             <Provider store={store}>
-                <LoginContainer />
+                <AppContainer />
             </Provider>
         );
     }

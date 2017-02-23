@@ -1,7 +1,7 @@
 // import SessionCookie from './Cookie';
 
-const PROXY = 'http://proxy.fairhursts.net';
-const AUTH = PROXY + '/eclipse/rest/authenticate';
+const AUTH = 'http://eclipse.fairhursts.net/eclipse/rest/authenticate';
+const PROXY = 'http://eclipse.fairhursts.net';
 const PERSON = PROXY + '/eclipse/rest/person/{id}';
 const SEARCH = PROXY + '/eclipse/rest/person?s=%5B%5D&pageNumber=1&';
 const CHRONOLOGY = PERSON + '/chronologyEntry?s=[{%22eventDate!calculatedDate%22:%20%22desc%22}]&pageNumber=1&pageSize=-1';
@@ -70,13 +70,38 @@ class EclipseRestService {
         return this.sendRequest(this.endPoints.professionals, this.mapProfessionalsResponse, PROFESSIONALS_HEADER);
     }
 
-    sendRequest(url, handler, header) {
-        let options = {
-            'credentials': 'include',
-            'Cookie': 'JSESSIONID=C7BDA6CE3279ED69B74182169395F8E2'
+    auth(username, password) {
+        let body = {
+            userName: username,
+            credentials: password,
+            _type: 'SecurityAuthentication'
         };
+        let options = {
+            'method': 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        };
+        return new Promise((resolve, reject) => {
+            fetch(AUTH, options)
+                .then(res => {
+                    if (res.status) {
+                        // let cookie = res.headers.map['set-cookie'][0];
+                        // console.log(cookie);
+                        resolve(res.headers);
+                    } else {
+                        resolve(this.error(res));
+                    }
+                })
+                .catch(error => reject(error));
+        });
+    }
+
+    sendRequest(url, handler, header) {
+        let options = {};
         if (header) { options.headers = { 'Accept': header }; }
-console.log('options', options);                      //
         return new Promise((resolve, reject) => {
             fetch(url, options)
                 .then(res => { console.log(res); return res.json(); })
@@ -109,11 +134,12 @@ console.log('options', options);                      //
     }
 
     mapSearchResponse = (results) => {
+        console.log('Search Results', results)
         return results.map(r => {
             return {
                 title: r.title,
                 name: r.name,
-                dob: r.dateOfBirth.calculatedDate,
+                dob: (r.dateOfBirth) ? r.dateOfBirth.calculatedDate : undefined,
                 age: r.age,
                 ethnicity: r.ethnicity,
                 nhsNumber: r.nhsNumber

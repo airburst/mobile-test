@@ -17,6 +17,12 @@ export const endFetch = () => {
     };
 };
 
+export const setAuthenticated = () => {
+    return {
+        type: types.AUTHENTICATED
+    };
+};
+
 export const setName = (data) => {
     return {
         type: types.SET_NAME,
@@ -59,45 +65,43 @@ export const updateClientList = (data) => {
 };
 
 // Action Creators
-export const getAuthToken = () => {
-    console.log('getting token')
-    return (dispatch) => {
-        AsyncStorage.getItem(AUTH_TOKEN)
-            .then(token => {
-                console.log('got', token);
-                dispatch(setToken(token));
-            })
-            .catch(err => console.log('Error getting auth token', err));
-    };
-};
+// export const getAuthToken = () => {
+//     console.log('getting token')
+//     return (dispatch) => {
+//         AsyncStorage.getItem(AUTH_TOKEN)
+//             .then(token => {
+//                 console.log('got', token);
+//                 dispatch(setToken(token));
+//             })
+//             .catch(err => console.log('Error getting auth token', err));
+//     };
+// };
 
-export const storeAuthToken = (token) => {
-    return (dispatch) => {
-        AsyncStorage.setItem(AUTH_TOKEN, token)
-            .then(() => AsyncStorage.getItem(AUTH_TOKEN)
-                .then(token => {
-                    // setTimeout(() => {
-                    dispatch(setToken(token));
-                    dispatch(endFetch())
-                    // }, 2000);
-                })
-                .catch(err => console.log('Error getting auth token', err))
-            )
-            .catch(err => console.log('Error storing auth token', err))
-    };
-};
+// export const storeAuthToken = (token) => {
+//     return (dispatch) => {
+//         AsyncStorage.setItem(AUTH_TOKEN, token)
+//             .then(() => AsyncStorage.getItem(AUTH_TOKEN)
+//                 .then(token => {
+//                     dispatch(setToken(token));
+//                     dispatch(endFetch())
+//                 })
+//                 .catch(err => console.log('Error getting auth token', err))
+//             )
+//             .catch(err => console.log('Error storing auth token', err))
+//     };
+// };
 
 export const login = (user, password) => {
     return (dispatch) => {
         dispatch(startFetch())
-        //DEBUG
-        dispatch(storeAuthToken(user + password));
-        // return eclipseService.auth({ postCode: postcode })
-        //     .then(c => {
-        //          dispatch(storeAuthToken(user + password));
-        //          dispatch(eclipseSearchData(c)); // with token
-        //      })
-        //     .catch(err => console.log('Error fetching postcode data:', err));
+        return eclipseService.auth(user, password)
+            .then(c => {
+                // TODO - check for error response
+                console.log('ClientActions', c);                //
+                dispatch(endFetch())
+                dispatch(setAuthenticated());
+             })
+            .catch(err => console.log('Error authenticating:', err));
     };
 };
 

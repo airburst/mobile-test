@@ -11,8 +11,17 @@ import LoginForm from './LoginForm';
 
 export default class Login extends React.Component {
 
+    componentDidUpdate() {
+        if (this.props.client.authenticated) {
+            // this.props.getPostcode(51.4174, -2.2102);    // Test
+            // this.props.searchByPostcode('SN13 9XE');    // Test
+        }
+    }
+
     render() {
         let { storeAuthToken, client } = { ...this.props };
+        console.log(this.props)
+        let authStatus = (client.authenticated) ? 'Authenticated' : '';
         return (
             <KeyboardAvoidingView
                 behavior="padding"
@@ -21,7 +30,7 @@ export default class Login extends React.Component {
                     <Image
                         style={styles.logo}
                         source={require('../images/logo.png')} />
-                    <Text>{client.authToken}</Text>
+                    <Text>{authStatus}</Text>
                     <ActivityIndicator
                         animating={client.fetching}
                         style={[styles.centered, { height: 80 }]}

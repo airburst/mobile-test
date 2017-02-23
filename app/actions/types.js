@@ -3,6 +3,7 @@ export const RECEIVE_POSTCODE = 'RECEIVE_POSTCODE';
 export const UPDATE_LOCATION = 'UPDATE_LOCATION';
 export const START_FETCH = 'START_FETCH';
 export const END_FETCH = 'END_FETCH';
+export const AUTHENTICATED = 'AUTHENTICATED';
 export const SET_NAME = 'SET_NAME';
 export const SET_PASSWORD = 'SET_PASSWORD';
 export const SET_TOKEN = 'SET_TOKEN';

@@ -3,7 +3,8 @@ import * as types from '../actions/types';
 let initialState = {
     user: 'TSteer',
     password: 'OLM12345!',
-    authToken: 'NO TOKEN',
+    authenticated: false,
+    authToken: 'NO TOKEN',      //
     fetching: false,
     clientList: [],
     currentClient: {}
@@ -20,6 +21,11 @@ const clientReducers = (state = initialState, action) => {
         case types.END_FETCH:
             return Object.assign({}, state, {
                 fetching: false
+            });
+
+        case types.AUTHENTICATED:
+            return Object.assign({}, state, {
+                authenticated: true
             });
 
         case types.SET_NAME:
