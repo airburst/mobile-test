@@ -134,7 +134,6 @@ class EclipseRestService {
     }
 
     mapSearchResponse = (results) => {
-        console.log('Search Results', results)
         return results.map(r => {
             return {
                 title: r.title,

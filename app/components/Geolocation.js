@@ -2,10 +2,18 @@ import React from 'react';
 import {
     StyleSheet,
     Text,
-    View
+    View,
+    ListView
 } from 'react-native';
 
 class Geolocation extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.ds = new ListView.DataSource({
+            rowHasChanged: (r1, r2) => r1 !== r2
+        });
+    }
 
     componentDidMount() {
         navigator.geolocation.getCurrentPosition(
@@ -34,9 +42,20 @@ class Geolocation extends React.Component {
         }
     }
 
+    renderRow(rowData, sectionID, rowID, highlightRow) {
+        let name = `${rowData.title} ${rowData.name}`;
+        return (
+            <View style={styles.row}>
+                <Text style={styles.nameField}>{name}</Text>
+                <Text style={styles.ageField}>{rowData.age}</Text>
+                <Text style={styles.field}>{rowData.ethnicity}</Text>
+            </View>
+        );
+    }
+
     render() {
         let { location, client } = { ...this.props };
-        // console.log(client.clientList)     //
+
         return (
             <View style={styles.container}>
                 <View style={styles.locationContainer}>
@@ -46,6 +65,12 @@ class Geolocation extends React.Component {
                     <Text>
                         Postcode: {location.postcode}
                     </Text>
+                </View>
+                <View style={styles.list}>
+                    <ListView
+                        contentContainerStyle={styles.list}
+                        dataSource={this.ds.cloneWithRows(client.clientList)}
+                        renderRow={this.renderRow} />
                 </View>
 
             </View>
@@ -61,7 +86,24 @@ var styles = StyleSheet.create({
     locationContainer: {
         marginTop: 60,
         alignItems: 'center',
-        flexGrow: 1,
+        height: 60
+    },
+    list: {
+        flex: 1
+    },
+    row: {
+        padding: 10,
+        borderTopColor: '#f9f9f9',
+        flexDirection: 'row'
+    },
+    nameField: {
+        flex: 2
+    },
+    ageField: {
+        marginRight: 20
+    },
+    field: {
+        flex: 1
     },
     title: {
         fontWeight: '500',
