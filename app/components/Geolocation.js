@@ -43,11 +43,13 @@ class Geolocation extends React.Component {
     }
 
     renderRow(rowData, sectionID, rowID, highlightRow) {
-        let name = `${rowData.title} ${rowData.name}`;
+        let title = (rowData.title) ? rowData.title + ' ' : '',
+            age = (rowData.age > -1) ? rowData.age : '',
+            name = `${title}${rowData.name}`;
         return (
             <View style={styles.row}>
                 <Text style={styles.nameField}>{name}</Text>
-                <Text style={styles.ageField}>{rowData.age}</Text>
+                <Text style={styles.ageField}>{age}</Text>
                 <Text style={styles.field}>{rowData.ethnicity}</Text>
             </View>
         );
@@ -92,8 +94,10 @@ var styles = StyleSheet.create({
         flex: 1
     },
     row: {
-        padding: 10,
+        paddingHorizontal: 10,
+        paddingVertical: 15,
         borderTopColor: '#f9f9f9',
+        borderTopWidth: 1,
         flexDirection: 'row'
     },
     nameField: {
