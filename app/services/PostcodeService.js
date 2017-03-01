@@ -15,10 +15,10 @@ class PostcodeService {
             fetch(url)
                 .then(res => res.json())
                 .then(data => {
-                    if (data.result !== undefined) {
+                    if (data.result) {
                         resolve(handler(data.result));
                     } else {
-                        resolve(this.error(data));
+                        reject(this.error(data));
                     }
                 })
                 .catch(error => reject(error));

@@ -2,7 +2,7 @@ import * as types from '../actions/types';
 
 let initialState = {
     user: 'TSteer',
-    password: 'OLM12345!',
+    password: 'SImpsons123!',
     authenticated: false,
     authToken: 'NO TOKEN',      //
     fetching: false,

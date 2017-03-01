@@ -9,8 +9,8 @@ export default class App extends Component {
         return (
             <Router>
                 <Scene key="root">
-                    <Scene key="login" component={LoginContainer} title="Login" initial={true} />
-                    <Scene key="location" component={LocationContainer} title="Location" />
+                    <Scene key="login" component={LoginContainer} title="Login" initial />
+                    <Scene key="location" component={LocationContainer} title="Nearby Clients" />
                 </Scene>
             </Router>
         )

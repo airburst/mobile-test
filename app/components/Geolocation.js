@@ -30,30 +30,42 @@ class Geolocation extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.location.postcode !== prevProps.location.postcode) {
-            console.log('postcode changed:', this.props.location.postcode);     //
             this.props.searchByPostcode(this.props.location.postcode);
         }
     }
 
     render() {
         let { location, client } = { ...this.props };
-        console.log(client)     //
+        // console.log(client.clientList)     //
         return (
-            <View>
-                <Text>
-                    Lat: {location.lat}, Lon: {location.lon}
-                </Text>
-                <Text>
-                    Postcode: {location.postcode}
-                </Text>
+            <View style={styles.container}>
+                <View style={styles.locationContainer}>
+                    <Text>
+                        Lat: {location.lat}, Lon: {location.lon}
+                    </Text>
+                    <Text>
+                        Postcode: {location.postcode}
+                    </Text>
+                </View>
+
             </View>
         );
     }
 }
 
 var styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: 'white'
+    },
+    locationContainer: {
+        marginTop: 60,
+        alignItems: 'center',
+        flexGrow: 1,
+    },
     title: {
         fontWeight: '500',
+        color: '#262626'
     },
 });
 

@@ -97,7 +97,6 @@ export const login = (user, password) => {
         return eclipseService.auth(user, password)
             .then(c => {
                 // TODO - check for error response
-                console.log('ClientActions', c);                //
                 dispatch(endFetch())
                 dispatch(setAuthenticated());
              })
