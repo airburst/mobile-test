@@ -135,8 +135,10 @@ class EclipseRestService {
     }
 
     mapSearchResponse = (results) => {
-        // TODO: filter by address.location.postcode
-        return results.map(r => {
+        // TODO: filter by address.location.postcode where address !== null
+        let res = results
+            .filter(result => (result.address && result.address.location.postcode === postcode))
+            .map(r => {
             return {
                 title: r.title,
                 name: r.name,
@@ -145,7 +147,8 @@ class EclipseRestService {
                 ethnicity: r.ethnicity,
                 nhsNumber: r.nhsNumber
             }
-        });
+            });
+        return res || {};
     }
 
     mapChronologyResponse = (results) => {
