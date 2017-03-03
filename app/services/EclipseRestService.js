@@ -8,6 +8,7 @@ const CHRONOLOGY = PERSON + '/chronologyEntry?s=[{%22eventDate!calculatedDate%22
 const ADDRESSES = PERSON + '/address';
 const CASENOTES = PERSON + '/caseNoteEntry';
 const PROFESSIONALS = PERSON + '/personRelationship/professional?temporalStatusFilter=ALL';
+const SEARCH_HEADER = 'application/vnd.olmgroup-usp.relationshipsrecording.PersonWithAddressWarningCount+json';
 const PROFESSIONALS_HEADER = 'application/vnd.olmgroup-usp.relationshipsrecording.AsymmetricPersonPersonRelationshipResult+json';
 
 class EclipseRestService {
@@ -45,7 +46,7 @@ class EclipseRestService {
         // params ~ e.g. { postCode: 'AB1 1AB' }
         // See Person Search Params.txt for full list
         let url = this.endPoints.search + this.flattenParams(params);
-        return this.sendRequest(url, this.mapSearchResponse);
+        return this.sendRequest(url, this.mapSearchResponse, SEARCH_HEADER);
     }
 
     flattenParams(params) {
@@ -134,6 +135,7 @@ class EclipseRestService {
     }
 
     mapSearchResponse = (results) => {
+        // TODO: filter by address.location.postcode
         return results.map(r => {
             return {
                 title: r.title,
