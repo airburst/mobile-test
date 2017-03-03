@@ -24,6 +24,7 @@ class EclipseRestService {
             caseNotes: this.replaceId(CASENOTES, id),
             professionals: this.replaceId(PROFESSIONALS, id)
         };
+        this.postcode = null;
     }
 
     replaceId(url, value) {
@@ -46,6 +47,7 @@ class EclipseRestService {
         // params ~ e.g. { postCode: 'AB1 1AB' }
         // See Person Search Params.txt for full list
         let url = this.endPoints.search + this.flattenParams(params);
+        this.postcode = params.postCode;
         return this.sendRequest(url, this.mapSearchResponse, SEARCH_HEADER);
     }
 
@@ -135,9 +137,8 @@ class EclipseRestService {
     }
 
     mapSearchResponse = (results) => {
-        // TODO: filter by address.location.postcode where address !== null
         let res = results
-            .filter(result => (result.address && result.address.location.postcode === postcode))
+            .filter(result => (result.address && this.postcode && result.address.location.postcode === this.postcode))
             .map(r => {
             return {
                 title: r.title,
